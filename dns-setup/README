@@ -3,13 +3,10 @@ System-wide installation:
 npm install -g git-encrypt
 ```
 
-User-wide configuration:
-```
-
-```
-
 Repository configuration:
 ```
 gitcrypt init
-echo "" >> .gitattributes
+git config filter.encrypt.smudge "gitcrypt smudge"
+git config filter.encrypt.clean "gitcrypt clean"
+git config diff.encrypt.textconv "gitcrypt diff"
 ```

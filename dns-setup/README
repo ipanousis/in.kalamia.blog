@@ -1,0 +1,15 @@
+System-wide installation:
+```
+npm install -g git-encrypt
+```
+
+User-wide configuration:
+```
+
+```
+
+Repository configuration:
+```
+gitcrypt init
+echo "" >> .gitattributes
+```

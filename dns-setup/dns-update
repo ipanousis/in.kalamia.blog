@@ -1,0 +1,22 @@
+#!/bin/bash
+IP=$(curl -s dynamicdns.park-your-domain.com/getip)
+ping -c1 "$IP" &> /dev/null
+RC=$?
+if [[ $RC == 0 ]] ; then
+  RC_UPDATE=1
+  for UPDATE_ATTEMPT in {1..5}; do
+    curl -s "https://dynamicdns.park-your-domain.com/update?host=blog&domain=kalamia.in&password=9f9f3254b54441858da54f0030d5d340&ip=$IP" | egrep -o "<ResponseCount>0</ResponseCount>" &> /dev/null
+    RC_UPDATE=$?
+    if [[ $RC_UPDATE == 0 ]] ; then
+      break;
+    fi
+    sleep 1;
+  done
+  if [[ $RC_UPDATE == 0 ]] ; then
+    echo "DNS entry for blog.kalamia.in updated to $IP"
+  else
+    echo "Failed to update DNS entry for blog.kalamia.in with IP: $IP"
+  fi
+else
+  echo "Failed to get or to ping IP: $IP"
+fi

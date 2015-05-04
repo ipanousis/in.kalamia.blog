@@ -1,0 +1,3 @@
+dns-setup/dns-update filter=encrypt diff=encrypt
+[merge]
+    renormalize=true
